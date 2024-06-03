@@ -56,7 +56,7 @@
             <td style="padding:20px;width:100%;vertical-align:middle">
               <heading>Research</heading>
               <p>
-                I'm interested in 3D Vision, Neural Rendering, and Computational Photography.
+                I'm interested in 3D Vision, Neural Rendering, Computational Photography, and Genarative AI.
               </p>
             </td>
           </tr>
@@ -64,6 +64,90 @@
 
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
           
+          <!-- LLM_3D -->
+          <tr onmouseout="LLM_3D_stop()" onmouseover="LLM_3D_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle;">
+              <div class="one">
+                <div class="two" id='LLM_3D_image'>
+                  <img src="images/LLM_3D_2.png" width="240">
+                </div>
+                <img src='images/LLM_3D.png' width="240">
+              </div>
+              <script type="text/javascript">
+                function LLM_3D_start() {
+                  document.getElementById('LLM_3D_image').style.opacity = "1";
+                }
+
+                function LLM_3D_stop() {
+                  document.getElementById('LLM_3D_image').style.opacity = "0";
+                }
+                LLM_3D_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/2405.10255">
+                <papertitle>When LLMs step into the 3D World: A Survey and Meta-Analysis of 3D Tasks via Multi-modal Large Language Models</papertitle>
+              </a>
+              <br>
+              <a href="https://xianzhengma.github.io">Xianzheng Ma</a>*, <a href="https://yashbhalgat.github.io">Yash Bhalgat</a>*, <a href="https://www.robots.ox.ac.uk/ActiveVision/People/index.html">Brandon Smart</a>*, <strong>Shuai Chen</strong>, <a href="https://yashbhalgat.github.io">Xinghui Li</a>, <a href="https://dingjiansw101.github.io">Jian Ding</a>, 
+              <a href="https://jindonggu.github.io">Jindong Gu</a>,
+              <a href="https://daveredrum.github.io">Dave Zhenyu Chen</a>,
+              <a href="https://pengsongyou.github.io/">Songyou Peng</a>,
+              <a href="https://jwbian.net">Jiawang Bian</a>,
+              <a href="https://www.robots.ox.ac.uk/~phst/">Philip Torr</a>,
+              <a href="https://people.inf.ethz.ch/marc.pollefeys/">Marc Pollefeys</a>,
+              <a href="https://niessnerlab.org">Matthias Nießner</a>,
+              <a href="https://scholar.google.co.uk/citations?user=ATkNLcQAAAAJ&hl=en">Ian D Reid</a>,
+              <a href="https://angelxuanchang.github.io">Angel X. Chang</a>,
+              <a href="https://scholar.google.de/citations?user=n9nXAPcAAAAJ&hl=en">Iro Laina</a>,
+              <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>
+              <br>
+              <em>arXiv</em>, 2024
+              <br>
+              <a href="https://arxiv.org/abs/2405.10255">paper</a>
+              <p></p>
+              <p>A survey paper that provides a comprehensive overview of the methodologies enabling LLMs to process, understand, and generate 3D data.</p>
+            </td>
+          </tr>
+          <br>
+
+          <!-- ACE0 -->
+          <tr onmouseout="ACE0_stop()" onmouseover="ACE0_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle;">
+              <div class="one">
+                <div class="two" id='ACE0_image'><video  width="240" muted autoplay loop>
+                <source src="videos/web_acezero.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video></div>
+                <img src='images/ACE_Zero.png' width="240">
+              </div>
+              <script type="text/javascript">
+                function ACE0_start() {
+                  document.getElementById('ACE0_image').style.opacity = "1";
+                }
+
+                function ACE0_stop() {
+                  document.getElementById('ACE0_image').style.opacity = "0";
+                }
+                ACE0_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/2404.14351">
+                <papertitle>Scene Coordinate Reconstruction: Posing of Image Collections via Incremental Learning of a Relocalizer</papertitle>
+              </a>
+              <br>
+              <a href="https://ebrach.github.io">Eric Brachmann</a>, <a href="https://scholar.google.com/citations?user=ASP-uu4AAAAJ&hl=en">Jamie Wynn</a>, <strong>Shuai Chen</strong>, <a href="https://scholar.google.com/citations?user=r7osSm0AAAAJ&hl=en">Tommaso Cavallari</a>, <a href="http://aron.monszp.art">Áron Monszpart</a>, <a href="https://dantkz.github.io">Daniyar Turmukhambetov</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>
+              <br>
+              <em>arXiv</em>, 2024
+              <br>
+              <a href="https://arxiv.org/abs/2404.14351">paper</a>
+              <p></p>
+              <p>A novel learning-based structure-from-motion (SfM) method using scene coordinate regression.</p>
+            </td>
+          </tr>
+          <br>
+
           <!-- Marepo -->
           <tr onmouseout="marepo_stop()" onmouseover="marepo_start()">
             <td style="padding:20px;width:25%;vertical-align:middle">
@@ -82,11 +166,11 @@
                 function marepo_stop() {
                   document.getElementById('marepo_image').style.opacity = "0";
                 }
-                NeFeS_stop()
+                marepo_stop()
               </script>
             </td>
             <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://chenusc11.github.io">
+              <a href="https://arxiv.org/abs/2404.09884">
                 <papertitle>Map-Relative Pose Regression for Visual Re-Localization</papertitle>
               </a>
               <br>
@@ -129,7 +213,7 @@
                 <papertitle>Neural Refinement for Absolute Pose Regression with Feature Synthesis</papertitle>
               </a>
               <br>
-              <strong>Shuai Chen</strong>, <a href="https://scholar.google.com/citations?user=q0VSEHYAAAAJ&hl=en/">Yash Bhalgat</a>, <a href="https://yashbhalgat.github.io">Xinghui Li</a>, <a href="https://jwbian.net">Jiawang Bian</a>, <a href="https://likojack.github.io/kejieli/#/home">Kejie Li</a>, <a href="https://scholar.google.com/citations?user=zCBKqa8AAAAJ&hl=en/">Zirui Wang</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>
+              <strong>Shuai Chen</strong>, <a href="https://yashbhalgat.github.io">Yash Bhalgat</a>, <a href="https://yashbhalgat.github.io">Xinghui Li</a>, <a href="https://jwbian.net">Jiawang Bian</a>, <a href="https://likojack.github.io/kejieli/#/home">Kejie Li</a>, <a href="https://scholar.google.com/citations?user=zCBKqa8AAAAJ&hl=en/">Zirui Wang</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>
               <br>
               <em>CVPR</em>, 2024
               <br>
