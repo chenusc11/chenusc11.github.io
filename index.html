@@ -1,459 +1,355 @@
-<!DOCTYPE HTML>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!DOCTYPE html>
+<html lang="en">
 
-  <title>Shuai Chen</title>
-  
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Shuai Chen">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-site-verification" content="TS6Ql6JwBaW_9IMNVy7inkSN3xEQav-ulv4i9QkCNoI" />
-  
-  <link rel="stylesheet" type="text/css" href="stylesheet.css">
-  <link rel="icon" type="image/png" href="images/seal_icon.png">
+  <title>Shuai Chen</title>
+  <link rel="icon" href="images/seal_icon.png" type="image/png">
+  <link rel="stylesheet" href="stylesheet.css">
+  <style>
+    body {font-family: 'Lato', Verdana, Helvetica, sans-serif; font-size: 14px; max-width: 1000px; margin: auto; padding: 2rem;}
+    /* name {display: block; text-align: center; margin-bottom: 0.5rem; font-family: 'Lato', Verdana, Helvetica, sans-serif; font-size: 32px;} */
+    .profile {display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem;}
+    .profile img {width: 240px; border-radius: 8px;}
+    /* specific override for cs2.jpg */
+    img.profile-photo {
+      width: 20%;    /* use relative width for proportional scaling */
+      max-width: 240px;
+      height: auto;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .profile-info {flex: 1; min-width: 250px;}
+    .profile-info .links {text-align: center; margin-top: 1rem;}
+    .profile-info .links a {margin: 0 0.5rem;}
+
+    /* Publications table */
+    .project-table {width:100%; border-collapse:separate; border-spacing:0; margin:1rem 0;}
+    .project-table tr {display: flex; flex-wrap: wrap;}
+    .project-table td {vertical-align:middle; padding:20px; box-sizing: border-box;}
+    .one {position:relative; width: 100%; max-width: 240px; overflow: hidden;}
+    .two {position:absolute; top:0; left:0; opacity:0; z-index:2; transition:opacity 0.3s; width:100%;}
+    .one:hover .two {opacity:1;}
+    .one img, .one video {width:100%; height:auto; display:block;}
+
+    /* Responsive adjustments */
+    @media screen and (max-width: 768px) {
+      .project-table tr {flex-direction: column;}
+      .project-table td {width: 100% !important; padding: 10px 0;}
+      .project-table td:first-child {margin-bottom: 10px;}
+    }
+  </style>
 </head>
 
 <body>
-  <table style="width:100%;max-width:1000px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-    <tr style="padding:0px">
-      <td style="padding:0px">
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr style="padding:0px">
-            <td style="padding:2.5%;width:63%;vertical-align:middle">
-              <p style="text-align:center">
-                <name>Shuai Chen</name>
-              </p>
-              
-              <!-- <p>I am a 4th year PhD student in <a href="https://www.robots.ox.ac.uk/ActiveVision/index.html">Active Vision Laboratory</a> at <a href="https://www.ox.ac.uk">University of Oxford</a>, supervised by <a href="https://www.robots.ox.ac.uk/~victor/">Prof. Victor Prisacariu</a>. I'm also co-supervised by <a href="https://www.robots.ox.ac.uk/~vedaldi/">Prof. Andrea Vedaldi</a> from <a href="https://www.robots.ox.ac.uk/~vgg/">VGG group, University of Oxford.</p> -->
+  <div class="profile">
+    <img class="profile-photo" src="images/cs2.jpg" alt="profile photo">
+    <!-- <a href="images/cs2.jpg"><img style="width:60%;max-width:60%;text-align:center;horizontal-align:middle;" alt="profile photo" src="images/cs2.jpg" class="hoverZoomLink"></a> -->
+    <div class="profile-info">
+      <p><name>Shuai Chen</name></p>
+      <p>I am a 4th year PhD student in <a href="https://www.robots.ox.ac.uk/ActiveVision/index.html">Active Vision Laboratory</a> at the <a href="https://www.ox.ac.uk">University of Oxford</a>, supervised by <a href="https://www.robots.ox.ac.uk/~victor/">Prof. Victor Adrian Prisacariu</a>. I received my Master’s and Bachelor’s degrees in Electrical Engineering from the <a href="https://minghsiehece.usc.edu">University of Southern California</a>.</p>
+      <p>Previously, I was a senior AI algorithm engineer and team leader at <a href="https://www.huawei.com/">Huawei Technologies</a>, leading several commercially successful computer vision and computational photography projects for Huawei/Honor flagship smartphones.</p>
+      <p>I also interned at <a href="https://nianticlabs.com">Niantic Labs</a> and <a href="https://about.meta.com/realitylabs/">Meta Reality Lab</a> as a research scientist intern.</p>
+      <p>In 2025, I joined Niantic as a senior research scientist.</p>
+      <p class="links"><a href="mailto:shuaic@robots.ox.ac.uk">Email</a><a href="data/Shuai_Chen_CV.pdf">CV</a><a href="https://scholar.google.com/citations?user=c0xTh_YAAAAJ&hl=en">Google Scholar</a><a href="https://www.linkedin.com/in/shuai-chen-0299894b/">LinkedIn</a><a href="https://github.com/chenusc11/">GitHub</a></p>
+    </div>
+  </div>
 
-              <p>I am a 4th year PhD student in <a href="https://www.robots.ox.ac.uk/ActiveVision/index.html">Active Vision Laboratory</a> at <a href="https://www.ox.ac.uk">University of Oxford</a>, supervised by <a href="https://www.robots.ox.ac.uk/~victor/">Prof. Victor Prisacariu</a>. I received my Master and Bachelor in Electrical Engineering at the <a href="https://minghsiehece.usc.edu">University of Southern California</a>.
-              </p>
+  <heading>Research</heading>
+  <p>I’m interested in 3D Vision, Computational Photography, and Generative AI.</p>
 
-              <p>Previously, I was a senior AI algorithm engineer and a team leader at <a href="https://www.huawei.com/">Huawei Technologies</a>, where I led several commercially successful computer vision and computational photography projects in Huawei/Honor flagship smartphones.
-              </p>
-
-              <p>
-              I spent a delightful time at <a href="https://nianticlabs.com">Niantic Labs</a> as a research intern, mentored by amazing scientists <a href="https://ebrach.github.io">Eric Brachmann</a>, <a href="https://scholar.google.it/citations?user=r7osSm0AAAAJ&hl=en">Tommaso Cavallari</a>, and <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>.
-              </p>
-
-              <p>
-              In 2024, I joined <a href="https://about.meta.com/realitylabs/">Meta Reality Lab</a> as a research scientist intern.
-              </p>
-
-              <p>
-              Next, I'm joining Ninatic as a senior research scientist.
-              </p>
-
-              <p style="text-align:center">
-                <a href="mailto:shuaic@robots.ox.ac.uk">Email</a> &nbsp/&nbsp
-                <a href="data/Shuai_Chen_CV.pdf">CV</a> &nbsp/&nbsp
-                <a href="https://scholar.google.com/citations?user=c0xTh_YAAAAJ&hl=en">Google Scholar</a> &nbsp/&nbsp
-                <a href="https://www.linkedin.com/in/shuai-chen-0299894b/">LinkedIn</a> &nbsp/&nbsp
-                <a href="https://github.com/chenusc11/">Github</a>
-              </p>
-            </td>
-            <td style="padding:2.5%;width:35%;max-width:35%;text-align:center;horizontal-align:middle">
-              <a href="images/cs2.jpg"><img style="width:60%;max-width:60%;text-align:center;horizontal-align:middle;" alt="profile photo" src="images/cs2.jpg" class="hoverZoomLink"></a>
-            </td>
-          </tr>
-        </tbody></table>
-
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>Research</heading>
-              <p>
-                I'm interested in 3D Vision, Computational Photography, and Genarative AI.
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          
-          <!-- GSCPR -->
-          <tr onmouseout="GSCPR_stop()" onmouseover="GSCPR_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle;">
-              <div class="one">
-                <div class="two" id='GSCPR_image'><video  width="240" muted autoplay loop>
+  <!-- <heading>Selected Publications</heading> -->
+  <table class="project-table">
+    <!-- GS-CPR -->
+    <tr onmouseout="GSCPR_stop()" onmouseover="GSCPR_start()">
+        <td style="width:25%;">
+        <div class="one">
+            <div class="two" id="GSCPR_image">
+            <video muted autoplay loop>
                 <source src="videos/gs_cpr.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-                </video></div>
-                <img src='images/gs_cpr.jpg' width="240">
-              </div>
-              
-              
-              <!-- <div class="one">
-                <div class="two" id='GSLoc_image'>
-                  <img src="images/idle.jpg" width="180">
-                </div>
-                <img src='images/idle.jpg' width="180">
-              </div> -->
-              <script type="text/javascript">
-                function GSCPR_start() {
-                  document.getElementById('GSCPR_image').style.opacity = "1";
-                }
+            </video>
+            </div>
+            <img src="images/gs_cpr.jpg" alt="GS-CPR">
+        </div>
+        </td>
+        <td style="flex:1;">
+        <a href="https://xrim-lab.github.io/GS-CPR/">
+            <papertitle>GS-CPR: Efficient Camera Pose Refinement via 3D Gaussian Splatting</papertitle>
+        </a><br>
+        <a href="https://lck666666.github.io">Changkun Liu</a>, <strong>Shuai Chen</strong>, <a href="https://yashbhalgat.github.io">Yash Bhalgat</a>, <a href="https://scholar.google.com/citations?user=S56rLU4AAAAJ&hl=en">Siyan Hu</a>, <a href="https://scholar.google.com/citations?user=zCBKqa8AAAAJ&hl=en/">Zirui Wang</a>, <a href="https://mingcheng991129.github.io">Ming Cheng</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>, <a href="https://scholar.google.com/citations?user=ZOZtoQUAAAAJ">Tristan Braud</a><br>
+        <em>ICLR</em>, 2025<br>
+        <a href="https://xrim-lab.github.io/GS-CPR/">project page</a> /
+            <a href="https://arxiv.org/abs/2408.11085">paper</a> /
+            <a href="https://github.com/XRIM-Lab/GS-CPR">code</a>
+        <p></p>
+        <p>Efficient camera pose refinement using 3D Gaussian Splatting and 3D foundation model MASt3R.</p>
+        </td>
+    </tr>
 
-                function GSCPR_stop() {
-                  document.getElementById('GSCPR_image').style.opacity = "0";
-                }
-                GSCPR_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://xrim-lab.github.io/GS-CPR/">
-                <papertitle>GS-CPR: Efficient Camera Pose Refinement via 3D Gaussian Splatting</papertitle>
-              </a>
-              <br>
-              <a href="https://lck666666.github.io">Changkun Liu</a>, <strong>Shuai Chen</strong>, <a href="https://yashbhalgat.github.io">Yash Bhalgat</a>, <a href="https://scholar.google.com/citations?user=S56rLU4AAAAJ&hl=en">Siyan Hu</a>, <a href="https://scholar.google.com/citations?user=zCBKqa8AAAAJ&hl=en/">Zirui Wang</a>, <a href="https://mingcheng991129.github.io">Ming Cheng</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>, <a href="https://scholar.google.com/citations?user=ZOZtoQUAAAAJ">Tristan Braud</a>
-              <br>
-              <em>ICLR</em>, 2025
-              <br>
-              <a href="https://arxiv.org/abs/2408.11085">paper</a>
-              <p></p>
-              <p>Efficient camera pose refinement using 3D Gaussian Splatting and 3D foundation model MASt3R.</p>
-            </td>
-          </tr>
-          <br>
+    <!-- LLM_3D -->
+    <tr onmouseout="LLM_3D_stop()" onmouseover="LLM_3D_start()">
+        <td style="width:25%;">
+        <div class="one">
+            <div class="two" id="LLM_3D_image">
+            <img src="images/LLM_3D_2.png" alt="LLM_3D">
+            </div>
+            <img src="images/LLM_3D.png" alt="LLM_3D">
+        </div>
+        </td>
+        <td style="flex:1;">
+            <a href="https://arxiv.org/abs/2405.10255">
+            <papertitle>When LLMs step into the 3D World: A Survey and Meta-Analysis of 3D Tasks via Multi-modal Large Language Models</papertitle>
+            </a>
+            <br>
+            <a href="https://xianzhengma.github.io">Xianzheng Ma</a>*, <a href="https://yashbhalgat.github.io">Yash Bhalgat</a>*, <a href="https://www.robots.ox.ac.uk/ActiveVision/People/index.html">Brandon Smart</a>*, <strong>Shuai Chen</strong>, <a href="https://yashbhalgat.github.io">Xinghui Li</a>, <a href="https://dingjiansw101.github.io">Jian Ding</a>, 
+            <a href="https://jindonggu.github.io">Jindong Gu</a>,
+            <a href="https://daveredrum.github.io">Dave Zhenyu Chen</a>,
+            <a href="https://pengsongyou.github.io/">Songyou Peng</a>,
+            <a href="https://jwbian.net">Jiawang Bian</a>,
+            <a href="https://www.robots.ox.ac.uk/~phst/">Philip Torr</a>,
+            <a href="https://people.inf.ethz.ch/marc.pollefeys/">Marc Pollefeys</a>,
+            <a href="https://niessnerlab.org">Matthias Nießner</a>,
+            <a href="https://scholar.google.co.uk/citations?user=ATkNLcQAAAAJ&hl=en">Ian D Reid</a>,
+            <a href="https://angelxuanchang.github.io">Angel X. Chang</a>,
+            <a href="https://scholar.google.de/citations?user=n9nXAPcAAAAJ&hl=en">Iro Laina</a>,
+            <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>
+            <br>
+            <em>arXiv</em>, 2024
+            <br>
+            <a href="https://arxiv.org/abs/2405.10255">paper</a>
+            <p></p>
+            <p>A survey paper that provides a comprehensive overview of the methodologies enabling LLMs to process, understand, and generate 3D data.</p>
+        </td>
+    </tr>
 
-
-          <!-- LLM_3D -->
-          <tr onmouseout="LLM_3D_stop()" onmouseover="LLM_3D_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle;">
-              <div class="one">
-                <div class="two" id='LLM_3D_image'>
-                  <img src="images/LLM_3D_2.png" width="240">
-                </div>
-                <img src='images/LLM_3D.png' width="240">
-              </div>
-              <script type="text/javascript">
-                function LLM_3D_start() {
-                  document.getElementById('LLM_3D_image').style.opacity = "1";
-                }
-
-                function LLM_3D_stop() {
-                  document.getElementById('LLM_3D_image').style.opacity = "0";
-                }
-                LLM_3D_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://arxiv.org/abs/2405.10255">
-                <papertitle>When LLMs step into the 3D World: A Survey and Meta-Analysis of 3D Tasks via Multi-modal Large Language Models</papertitle>
-              </a>
-              <br>
-              <a href="https://xianzhengma.github.io">Xianzheng Ma</a>*, <a href="https://yashbhalgat.github.io">Yash Bhalgat</a>*, <a href="https://www.robots.ox.ac.uk/ActiveVision/People/index.html">Brandon Smart</a>*, <strong>Shuai Chen</strong>, <a href="https://yashbhalgat.github.io">Xinghui Li</a>, <a href="https://dingjiansw101.github.io">Jian Ding</a>, 
-              <a href="https://jindonggu.github.io">Jindong Gu</a>,
-              <a href="https://daveredrum.github.io">Dave Zhenyu Chen</a>,
-              <a href="https://pengsongyou.github.io/">Songyou Peng</a>,
-              <a href="https://jwbian.net">Jiawang Bian</a>,
-              <a href="https://www.robots.ox.ac.uk/~phst/">Philip Torr</a>,
-              <a href="https://people.inf.ethz.ch/marc.pollefeys/">Marc Pollefeys</a>,
-              <a href="https://niessnerlab.org">Matthias Nießner</a>,
-              <a href="https://scholar.google.co.uk/citations?user=ATkNLcQAAAAJ&hl=en">Ian D Reid</a>,
-              <a href="https://angelxuanchang.github.io">Angel X. Chang</a>,
-              <a href="https://scholar.google.de/citations?user=n9nXAPcAAAAJ&hl=en">Iro Laina</a>,
-              <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>
-              <br>
-              <em>arXiv</em>, 2024
-              <br>
-              <a href="https://arxiv.org/abs/2405.10255">paper</a>
-              <p></p>
-              <p>A survey paper that provides a comprehensive overview of the methodologies enabling LLMs to process, understand, and generate 3D data.</p>
-            </td>
-          </tr>
-          <br>
-
-          <!-- ACE0 -->
-          <tr onmouseout="ACE0_stop()" onmouseover="ACE0_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle;">
-              <div class="one">
-                <div class="two" id='ACE0_image'><video  width="240" muted autoplay loop>
+    <!-- ACE0 -->
+    <tr onmouseout="ACE0_stop()" onmouseover="ACE0_start()">
+        <td style="width:25%;">
+        <div class="one">
+            <div class="two" id="ACE0_image">
+            <video muted autoplay loop>
                 <source src="videos/web_acezero.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-                </video></div>
-                <img src='images/ACE_Zero.png' width="240">
-              </div>
-              <script type="text/javascript">
-                function ACE0_start() {
-                  document.getElementById('ACE0_image').style.opacity = "1";
-                }
+            </video>
+            </div>
+            <img src="images/ACE_Zero.png" alt="ACE Zero">
+        </div>
+        </td>
+        <td style="flex:1;">
+            <a href="https://arxiv.org/abs/2404.14351">
+            <papertitle>Scene Coordinate Reconstruction: Posing of Image Collections via Incremental Learning of a Relocalizer</papertitle>
+            </a>
+            <br>
+            <a href="https://ebrach.github.io">Eric Brachmann</a>, <a href="https://scholar.google.com/citations?user=ASP-uu4AAAAJ&hl=en">Jamie Wynn</a>, <strong>Shuai Chen</strong>, <a href="https://scholar.google.com/citations?user=r7osSm0AAAAJ&hl=en">Tommaso Cavallari</a>, <a href="http://aron.monszp.art">Áron Monszpart</a>, <a href="https://dantkz.github.io">Daniyar Turmukhambetov</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>
+            <br>
+            <em>ECCV</em>, 2024 &nbsp <font color="red"><strong>Oral (2.3%)</strong></font>
+            <br>
+            <a href="https://nianticlabs.github.io/acezero/">project page</a> /
+            <a href="https://arxiv.org/abs/2404.14351">paper</a> /
+            <a href="https://github.com/nianticlabs/acezero">code</a>
+            <p></p>
+            <p>A novel learning-based structure-from-motion (SfM) method using scene coordinate regression.</p>
+        </td>
+    </tr>
 
-                function ACE0_stop() {
-                  document.getElementById('ACE0_image').style.opacity = "0";
-                }
-                ACE0_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://arxiv.org/abs/2404.14351">
-                <papertitle>Scene Coordinate Reconstruction: Posing of Image Collections via Incremental Learning of a Relocalizer</papertitle>
-              </a>
-              <br>
-              <a href="https://ebrach.github.io">Eric Brachmann</a>, <a href="https://scholar.google.com/citations?user=ASP-uu4AAAAJ&hl=en">Jamie Wynn</a>, <strong>Shuai Chen</strong>, <a href="https://scholar.google.com/citations?user=r7osSm0AAAAJ&hl=en">Tommaso Cavallari</a>, <a href="http://aron.monszp.art">Áron Monszpart</a>, <a href="https://dantkz.github.io">Daniyar Turmukhambetov</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>
-              <br>
-              <em>ECCV</em>, 2024 &nbsp <font color="red"><strong>Oral (2.3%)</strong></font>
-              <br>
-              <a href="https://nianticlabs.github.io/acezero/">project page</a> /
-              <a href="https://arxiv.org/abs/2404.14351">paper</a> /
-              <a href="https://github.com/nianticlabs/acezero">code</a>
-              <p></p>
-              <p>A novel learning-based structure-from-motion (SfM) method using scene coordinate regression.</p>
-            </td>
-          </tr>
-          <br>
-
-          <!-- Marepo -->
-          <tr onmouseout="marepo_stop()" onmouseover="marepo_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='marepo_image'><video  width="240" muted autoplay loop>
+    <!-- Marepo -->
+    <tr onmouseout="marepo_stop()" onmouseover="marepo_start()">
+        <td style="width:25%;">
+        <div class="one">
+            <div class="two" id="marepo_image">
+            <video muted autoplay loop>
                 <source src="videos/marepo2.mov" type="video/mp4">
-                Your browser does not support the video tag.
-                </video></div>
-                <img src='images/Fig1_marepo.png' width="240">
-              </div>
-              <script type="text/javascript">
-                function marepo_start() {
-                  document.getElementById('marepo_image').style.opacity = "1";
-                }
+            </video>
+            </div>
+            <img src="images/Fig1_marepo.png" alt="MARePo">
+        </div>
+        </td>
+        <td style="flex:1;">
+        <a href="https://arxiv.org/abs/2404.09884">
+        <papertitle>Map-Relative Pose Regression for Visual Re-Localization</papertitle>
+        </a>
+        <br>
+        <strong>Shuai Chen</strong>, <a href="https://scholar.google.com/citations?user=r7osSm0AAAAJ&hl=en">Tommaso Cavallari</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>, <a href="https://ebrach.github.io">Eric Brachmann</a>
+        <br>
+        <em>CVPR</em>, 2024 &nbsp <font color="red"><strong>Highlight (11.9%)</strong></font>
+        <br>
+        <a href="https://nianticlabs.github.io/marepo/">project page</a> /
+        <a href="https://arxiv.org/abs/2404.09884">paper</a> /
+        <a href="https://github.com/nianticlabs/marepo">code</a>
+        <p></p>
+        <p>A scene-agnostic pose regression network that maps scene-specific representations to 6-DoF camera poses, enabling APRs to adapt to new scenes in 5 minutes.</p>
+        </td>
+    </tr>
 
-                function marepo_stop() {
-                  document.getElementById('marepo_image').style.opacity = "0";
-                }
-                marepo_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://arxiv.org/abs/2404.09884">
-                <papertitle>Map-Relative Pose Regression for Visual Re-Localization</papertitle>
-              </a>
-              <br>
-              <strong>Shuai Chen</strong>, <a href="https://scholar.google.com/citations?user=r7osSm0AAAAJ&hl=en">Tommaso Cavallari</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>, <a href="https://ebrach.github.io">Eric Brachmann</a>
-              <br>
-              <em>CVPR</em>, 2024 &nbsp <font color="red"><strong>Highlight (11.9%)</strong></font>
-              <br>
-              <a href="https://nianticlabs.github.io/marepo/">project page</a> /
-              <a href="https://arxiv.org/abs/2404.09884">paper</a> /
-              <a href="https://github.com/nianticlabs/marepo">code</a>
-              <p></p>
-              <p>A scene-agnostic pose regression network that maps scene-specific representations to 6-DoF camera poses, enabling APRs to adapt to new scenes in 5 minutes.</p>
-            </td>
-          </tr>
-          <br>
-
-          <!-- NeFeS -->
-          <tr onmouseout="NeFeS_stop()" onmouseover="NeFeS_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='NeFeS_image'><video  width="240" muted autoplay loop>
+    <!-- NeFeS -->
+    <tr onmouseout="NeFeS_stop()" onmouseover="NeFeS_start()">
+        <td style="width:25%;">
+        <div class="one">
+            <div class="two" id="NeFeS_image">
+            <video muted autoplay loop>
                 <source src="videos/NeFeS.mov" type="video/mp4">
-                Your browser does not support the video tag.
-                </video></div>
-                <img src='images/nfs_arch.png' width="240">
-              </div>
-              <script type="text/javascript">
-                function NeFeS_start() {
-                  document.getElementById('NeFeS_image').style.opacity = "1";
-                }
+            </video>
+            </div>
+            <img src="images/nfs_arch.png" alt="NeFeS">
+        </div>
+        </td>
+        <td style="flex:1;">
+            <a href="https://arxiv.org/abs/2303.10087">
+            <papertitle>Neural Refinement for Absolute Pose Regression with Feature Synthesis</papertitle>
+            </a>
+            <br>
+            <strong>Shuai Chen</strong>, <a href="https://yashbhalgat.github.io">Yash Bhalgat</a>, <a href="https://yashbhalgat.github.io">Xinghui Li</a>, <a href="https://jwbian.net">Jiawang Bian</a>, <a href="https://likojack.github.io/kejieli/#/home">Kejie Li</a>, <a href="https://scholar.google.com/citations?user=zCBKqa8AAAAJ&hl=en/">Zirui Wang</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>
+            <br>
+            <em>CVPR</em>, 2024
+            <br>
+            <a href="http://nefes.active.vision/">project page</a> /
+            <a href="https://arxiv.org/abs/2303.10087">paper</a> /
+            <a href="https://github.com/ActiveVisionLab/NeFeS">code</a>
+            <p></p>
+            <p>A post-process for refining generic APRs using neural feature fields.</p>
+        </td>
+    </tr>
 
-                function NeFeS_stop() {
-                  document.getElementById('NeFeS_image').style.opacity = "0";
-                }
-                NeFeS_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://arxiv.org/abs/2303.10087">
-                <papertitle>Neural Refinement for Absolute Pose Regression with Feature Synthesis</papertitle>
-              </a>
-              <br>
-              <strong>Shuai Chen</strong>, <a href="https://yashbhalgat.github.io">Yash Bhalgat</a>, <a href="https://yashbhalgat.github.io">Xinghui Li</a>, <a href="https://jwbian.net">Jiawang Bian</a>, <a href="https://likojack.github.io/kejieli/#/home">Kejie Li</a>, <a href="https://scholar.google.com/citations?user=zCBKqa8AAAAJ&hl=en/">Zirui Wang</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>
-              <br>
-              <em>CVPR</em>, 2024
-              <br>
-              <a href="http://nefes.active.vision/">project page</a> /
-              <a href="https://arxiv.org/abs/2303.10087">paper</a> /
-              <a href="https://github.com/ActiveVisionLab/NeFeS">code</a>
-              <p></p>
-              <p>A post-process for refining generic APRs using neural feature fields.</p>
-            </td>
-          </tr>
-          <br>
-
-          <!-- HR-APR -->
-            <tr onmouseout="HRAPR_stop()" onmouseover="HRAPR_start()">
-              <td style="padding:20px;width:25%;vertical-align:middle">
-                <div class="one">
-                  <div class="two" id='HRAPR_image'>
-                    <img src='images/HR_APR2.png' width="240">
-                  </div>
-                  <img src='images/HR_APR.png' width="240">
-                </div>
-                <script type="text/javascript">
-                  function HRAPR_start() {
-                    document.getElementById('HRAPR_image').style.opacity = "1";
-                  }
+    <!-- HR-APR -->
+    <tr onmouseout="HRAPR_stop()" onmouseover="HRAPR_start()">
+        <td style="width:25%;">
+            <div class="one">
+            <div class="two" id="HRAPR_image">
+                <img src="images/HR_APR2.png" alt="HR-APR">
+            </div>
+            <img src="images/HR_APR.png" alt="HR-APR">
+            </div>
+        </td>
+        <td style="flex:1;">
+            <a href="https://arxiv.org/abs/2402.14371v1">
+            <papertitle>HR-APR: APR-agnostic Framework with Uncertainty Estimation and Hierarchical Refinement for Camera Relocalisation</papertitle>
+            </a>
+            <br>
+            <a href="https://lck666666.github.io">Changkun Liu</a>, <strong>Shuai Chen</strong>, Yukun Zhao, <a href="https://scholar.google.com/citations?user=rOhG9NoAAAAJ&hl=en&oi=sra">Huajian Huang</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>, <a href="https://scholar.google.com/citations?user=ZOZtoQUAAAAJ">Tristan Braud</a>
+            <br>
+            <em>ICRA</em>, 2024
+            <br>
+            <a href="https://lck666666.github.io/research/HR-APR/index.html">project page</a> /
+            <a href="https://arxiv.org/abs/2402.14371v1">paper</a> /
+            <a href="https://github.com/lck666666/HR-APR">code</a>
+            <p></p>
+            <p>An APR-agnostic framework that accelerates pose refinement via pose-retrieval and uncertainty estimation.</p>
+        </td>
+    </tr>
   
-                  function HRAPR_stop() {
-                    document.getElementById('HRAPR_image').style.opacity = "0";
-                  }
-                  HRAPR_stop()
-                </script>
-              </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://arxiv.org/abs/2402.14371v1">
-                <papertitle>HR-APR: APR-agnostic Framework with Uncertainty Estimation and Hierarchical Refinement for Camera Relocalisation</papertitle>
-              </a>
-              <br>
-              <a href="https://lck666666.github.io">Changkun Liu</a>, <strong>Shuai Chen</strong>, Yukun Zhao, <a href="https://scholar.google.com/citations?user=rOhG9NoAAAAJ&hl=en&oi=sra">Huajian Huang</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>, <a href="https://scholar.google.com/citations?user=ZOZtoQUAAAAJ">Tristan Braud</a>
-              <br>
-              <em>ICRA</em>, 2024
-              <br>
-              <a href="https://lck666666.github.io/research/HR-APR/index.html">project page</a> /
-              <a href="https://arxiv.org/abs/2402.14371v1">paper</a> /
-              <a href="https://github.com/lck666666/HR-APR">code</a>
-              <p></p>
-              <p>An APR-agnostic framework that accelerates pose refinement via pose-retrieval and uncertainty estimation.</p>
-            </td>
-          </tr>
-          <br>
-
-          <!-- DFNet -->
-          <tr onmouseout="DFNet_stop()" onmouseover="DFNet_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='DFNet_image'><video  width="240" muted autoplay loop>
+    <!-- DFNet -->
+    <tr onmouseout="DFNet_stop()" onmouseover="DFNet_start()">
+        <td style="width:25%;">
+        <div class="one">
+            <div class="two" id="DFNet_image">
+            <video muted autoplay loop>
                 <source src="videos/DFNet2.mov" type="video/mp4">
-                Your browser does not support the video tag.
-                </video></div>
-                <img src='images/DFNet1.png' width="240">
-              </div>
-              <script type="text/javascript">
-                function DFNet_start() {
-                  document.getElementById('DFNet_image').style.opacity = "1";
-                }
-
-                function DFNet_stop() {
-                  document.getElementById('DFNet_image').style.opacity = "0";
-                }
-                DFNet_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://arxiv.org/abs/2204.00559">
-                <papertitle>DFNet: Enhance Absolute Pose Regression with Direct Feature Matching</papertitle>
-              </a>
-              <br>
-              <strong>Shuai Chen</strong>, <a href="https://scholar.google.com/citations?user=XLlgbBoAAAAJ&hl=en/">Xinghui Li</a>, <a href="https://scholar.google.com/citations?user=zCBKqa8AAAAJ&hl=en/">Zirui Wang</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>
-              <br>
-              <em>ECCV</em>, 2022
-              <br>
-              <a href="https://dfnet.active.vision/">project page</a> /
-              <a href="https://arxiv.org/abs/2204.00559">paper</a> /
-              <a href="https://github.com/ActiveVisionLab/DFNet">code</a>  
-              <p></p>
-              <p>Leveraging luma-prior NeRF and direct feature matching to enhance 6-DoF camera pose regression approaches.</p>
-            </td>
-          </tr>
-
-          <tr onmouseout="DOVS_stop()" onmouseover="DOVS_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='DOVS_image'>
-                  <img src='images/Deep_Online_Video_Stab2.png' width="240">
-                </div>
-                <img src='images/Deep_Online_Video_Stab1.png' width="240">
-              </div>
-              <script type="text/javascript">
-                function DOVS_start() {
-                  document.getElementById('DOVS_image').style.opacity = "1";
-                }
-
-                function DOVS_stop() {
-                  document.getElementById('DOVS_image').style.opacity = "0";
-                }
-                DOVS_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://ieeexplore.ieee.org/document/9681170">
-                <papertitle>Deep Online Video Stabilization using IMU Sensors</papertitle>
-              </a>
-              <br>
-              <a href="https://medialab.sjtu.edu.cn/author/chen-li//">Chen Li</a>, <a href="https://medialab.sjtu.edu.cn/author/li-song//">Li Song</a>, <strong>Shuai Chen</strong>, Rong Xie, Wenjun Zhang,
-              <br>
-              <em>IEEE Transactions on Multimedia</em>, 2022
-              <br>
-              <a href="https://ieeexplore.ieee.org/document/9681170">paper</a>
-              <p></p>
-              <p>Real-time and data driven video stabilization using IMU sensors.</p>
-            </td>
-          </tr>
-
-          <tr onmouseout="directpn_stop()" onmouseover="directpn_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='directpn_image'><video  width="240" muted autoplay loop>
+            </video>
+            </div>
+            <img src="images/DFNet1.png" alt="DFNet">
+        </div>
+        </td>
+        <td style="flex:1;">
+            <a href="https://arxiv.org/abs/2204.00559">
+            <papertitle>DFNet: Enhance Absolute Pose Regression with Direct Feature Matching</papertitle>
+            </a>
+            <br>
+            <strong>Shuai Chen</strong>, <a href="https://scholar.google.com/citations?user=XLlgbBoAAAAJ&hl=en/">Xinghui Li</a>, <a href="https://scholar.google.com/citations?user=zCBKqa8AAAAJ&hl=en/">Zirui Wang</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>
+            <br>
+            <em>ECCV</em>, 2022
+            <br>
+            <a href="https://dfnet.active.vision/">project page</a> /
+            <a href="https://arxiv.org/abs/2204.00559">paper</a> /
+            <a href="https://github.com/ActiveVisionLab/DFNet">code</a>  
+            <p></p>
+            <p>Leveraging luma-prior NeRF and direct feature matching to enhance 6-DoF camera pose regression approaches.</p>
+        </td>
+    </tr>
+  
+    <!-- DOVS -->
+    <tr onmouseout="DOVS_stop()" onmouseover="DOVS_start()">
+        <td style="width:25%;">
+        <div class="one">
+            <div class="two" id="DOVS_image">
+            <img src="images/Deep_Online_Video_Stab2.png" alt="DOVS">
+            </div>
+            <img src="images/Deep_Online_Video_Stab1.png" alt="DOVS">
+        </div>
+        </td>
+        <td style="flex:1;">
+            <a href="https://ieeexplore.ieee.org/document/9681170">
+            <papertitle>Deep Online Video Stabilization using IMU Sensors</papertitle>
+            </a>
+            <br>
+            <a href="https://medialab.sjtu.edu.cn/author/chen-li//">Chen Li</a>, <a href="https://medialab.sjtu.edu.cn/author/li-song//">Li Song</a>, <strong>Shuai Chen</strong>, Rong Xie, Wenjun Zhang,
+            <br>
+            <em>IEEE Transactions on Multimedia</em>, 2022
+            <br>
+            <a href="https://ieeexplore.ieee.org/document/9681170">paper</a>
+            <p></p>
+            <p>Real-time and data driven video stabilization using IMU sensors.</p>
+        </td>
+    </tr>
+    
+    <!-- Direct-PoseNet -->
+    <tr onmouseout="directpn_stop()" onmouseover="directpn_start()">
+        <td style="width:25%;">
+        <div class="one">
+            <div class="two" id="directpn_image">
+            <video muted autoplay loop>
                 <source src="videos/DirectPN_converge.mov" type="video/mp4">
-                Your browser does not support the video tag.
-                </video></div>
-                <img src='images/Direct-PN.png' width="240">
-              </div>
-              <script type="text/javascript">
-                function directpn_start() {
-                  document.getElementById('directpn_image').style.opacity = "1";
-                }
-
-                function directpn_stop() {
-                  document.getElementById('directpn_image').style.opacity = "0";
-                }
-                directpn_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://direct-posenet.active.vision/">
-                <papertitle>Direct-PoseNet: Absolute Pose Regression with Photometric Consistency</papertitle>
-              </a>
-              <br>
-              <strong>Shuai Chen</strong>, <a href="https://scholar.google.com/citations?user=zCBKqa8AAAAJ&hl=en/">Zirui Wang</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>
-              <br>
-              <em>3DV</em>, 2021 
-              <br>
-              <a href="https://direct-posenet.active.vision/">project page</a> / 
-              <a href="https://arxiv.org/abs/2104.04073">paper</a> / 
-              <a href="https://github.com/ActiveVisionLab/direct-posenet/tree/main">code</a>  
-              <p></p>
-              <p>6-DoF camera pose regression with NeRF-based differentiable renderer.</p>
-            </td>
-          </tr>
-
-      </td>
+            </video>
+            </div>
+            <img src="images/Direct-PN.png" alt="Direct-PoseNet">
+        </div>
+        </td>
+        <td style="flex:1;">
+            <a href="https://direct-posenet.active.vision/">
+            <papertitle>Direct-PoseNet: Absolute Pose Regression with Photometric Consistency</papertitle>
+            </a>
+            <br>
+            <strong>Shuai Chen</strong>, <a href="https://scholar.google.com/citations?user=zCBKqa8AAAAJ&hl=en/">Zirui Wang</a>, <a href="https://www.robots.ox.ac.uk/~victor/">Victor Prisacariu</a>
+            <br>
+            <em>3DV</em>, 2021 
+            <br>
+            <a href="https://direct-posenet.active.vision/">project page</a> / 
+            <a href="https://arxiv.org/abs/2104.04073">paper</a> / 
+            <a href="https://github.com/ActiveVisionLab/direct-posenet/tree/main">code</a>  
+            <p></p>
+            <p>6-DoF camera pose regression with NeRF-based differentiable renderer.</p>
+        </td>
     </tr>
   </table>
 
-  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-    <tr>
-    <br>
-    <td style="padding:20px;width:100%;vertical-align:middle">
-      <heading>Academic Services</heading>
-      <p>
-        <b>Reviewer</b> ECCV 2022,24, CVPR 2023,24, ICCV 2023, ICRA 2024, RA-L 2024,25 <br>
-      </p>
-    </td>
-  </tr>
-</tbody></table>
+  <heading>Academic Services</heading>
+  <p><b>Reviewer</b>: ECCV 2022, 2024; CVPR 2023, 2024; ICCV 2023, 2025; ICRA 2024; RA-L 2024, 2025; NeurIPS 2025</p>
 
-  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-      <tr>
-        <td>
-        <br>
-        <p align="left">
-          <font size="2">
-          Website template borrowed from <a href="https://jonbarron.info">Jon Barron</a>. <br>
-      </font>
-        </p>
-        </td>
-      </tr>
-      </table>
+  <footer style="margin-top:2rem; font-size:small;">Website template borrowed from <a href="https://jonbarron.info">Jon Barron</a>.</footer>
+
+  <script>
+    function GSCPR_start(){document.getElementById('GSCPR_image').style.opacity='1';}
+    function GSCPR_stop(){document.getElementById('GSCPR_image').style.opacity='0';}
+    function LLM_3D_start(){document.getElementById('LLM_3D_image').style.opacity='1';}
+    function LLM_3D_stop(){document.getElementById('LLM_3D_image').style.opacity='0';}
+    function ACE0_start(){document.getElementById('ACE0_image').style.opacity='1';}
+    function ACE0_stop(){document.getElementById('ACE0_image').style.opacity='0';}
+    function marepo_start(){document.getElementById('marepo_image').style.opacity='1';}
+    function marepo_stop(){document.getElementById('marepo_image').style.opacity='0';}
+    function NeFeS_start(){document.getElementById('NeFeS_image').style.opacity='1';}
+    function NeFeS_stop(){document.getElementById('NeFeS_image').style.opacity='0';}
+    function HRAPR_start(){document.getElementById('HRAPR_image').style.opacity='1';}
+    function HRAPR_stop(){document.getElementById('HRAPR_image').style.opacity='0';}
+    function DFNet_start(){document.getElementById('DFNet_image').style.opacity='1';}
+    function DFNet_stop(){document.getElementById('DFNet_image').style.opacity='0';}
+    function DOVS_start(){document.getElementById('DOVS_image').style.opacity='1';}
+    function DOVS_stop(){document.getElementById('DOVS_image').style.opacity='0';}
+    function directpn_start(){document.getElementById('directpn_image').style.opacity='1';}
+    function directpn_stop(){document.getElementById('directpn_image').style.opacity='0';}
+    // initialize all
+    GSCPR_stop(); LLM_3D_stop(); ACE0_stop(); marepo_stop(); NeFeS_stop(); HRAPR_stop(); DFNet_stop(); DOVS_stop(); directpn_stop();
+  </script>
 </body>
 
 </html>
