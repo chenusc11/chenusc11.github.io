@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可爱图标连连看</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            background-color: #f0f8ff;
+            margin: 10px 0;
+            color: #333;
+            user-select: none;
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff5f5;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            max-width: 98vw;
+        }
+
+        h1 {
+            color: #ff6384;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+
+        .info-panel {
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            align-items: center; /* Center items horizontally */
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .control-buttons { /* New container for buttons */
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: center; /* Align items including dropdown */
+            margin-bottom: 10px; /* Space between buttons and stats */
+        }
+
+        .stats-display { /* New container for timer and score */
+            display: flex;
+            justify-content: space-around; /* Space out timer and score */
+            align-items: center;
+            width: 100%; /* Make it take full width to space items */
+            max-width: 300px; /* Optional: constrain width of stats */
+        }
+
+
+        #timer, #score {
+            background-color: #ffecf0;
+            padding: 8px 15px;
+            border-radius: 8px;
+            color: #c75b75;
+            font-weight: bold;
+            min-width: 100px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+            margin: 5px;
+        }
+
+        #restart-button, #mode-toggle-button, #size-toggle-button, #share-button, #test-win-button { /* Added #test-win-button */
+            background-color: #ff8fab;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 5px;
+        }
+
+        #restart-button:hover, #mode-toggle-button:hover, #size-toggle-button:hover, #share-button:hover, #test-win-button:hover { /* Added #test-win-button */
+            background-color: #ff6384;
+        }
+        #restart-button:active, #mode-toggle-button:active, #size-toggle-button:active, #share-button:active, #test-win-button:active { /* Added #test-win-button */
+            transform: scale(0.98);
+        }
+
+        /* Style for the language selector */
+        #language-selector {
+            background-color: #ff8fab;
+            color: white;
+            border: none;
+            padding: 8px 10px; /* Slightly smaller padding than buttons */
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85em; /* Slightly smaller font */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 5px;
+            -webkit-appearance: none; /* Remove default styling */
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.4-5.4-13z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: .65em auto;
+            padding-right: 30px; /* Make space for arrow */
+        }
+         #language-selector:hover {
+            background-color: #ff6384;
+        }
+
+
+        #game-board {
+            display: grid;
+            gap: 2px;
+            background-color: #ffffff;
+            padding: 5px;
+            border: 2px solid #ffc0cb;
+            border-radius: 10px;
+            /* Width will be set by JavaScript */
+            margin: 10px auto;
+        }
+
+        .tile {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff0f5;
+            border: 1px solid #f8bbd0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.15s ease, transform 0.15s ease;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            font-size: 20px;
+            box-sizing: border-box;
+        }
+
+        .tile img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .tile:hover {
+            background-color: #fce4ec;
+            transform: scale(1.05);
+        }
+
+        .tile.selected {
+            background-color: #ffd700;
+            transform: scale(1.1);
+            box-shadow: 0 0 8px #ffd700;
+            border-color: #ffc107;
+        }
+
+        .tile.hidden {
+            visibility: hidden !important;
+            cursor: default;
+            background-color: transparent !important;
+            box-shadow: none !important;
+            border-color: transparent !important;
+        }
+        .tile.hidden img { display: none !important; }
+        .tile.hidden * { visibility: hidden !important; }
+
+
+        #message-box {
+            margin-top: 15px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            min-height: 40px; /* Ensure space for messages */
+            box-sizing: border-box;
+        }
+
+        #message-box.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        #message-box.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .hidden-message-box { display: none !important; }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #ff6384;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 data-translate-key="gameTitle">可爱图标连连看</h1>
+        <div class="info-panel">
+            <div class="control-buttons">
+                
+                <button id="mode-toggle-button" data-translate-key="modeButtonHell">切换到地狱模式</button>
+                <button id="size-toggle-button" data-translate-key="sizeButtonHard">切换到16x16</button>
+                <button id="restart-button" data-translate-key="restartButton">重新开始</button>
+                <!-- <button id="test-win-button" data-translate-key="testWinButton">测试胜利</button> // for testing do not delete -->
+            </div>
+            <div class="stats-display">
+                <select id="language-selector">
+                    <option value="zh">zh-CN</option>
+                    <option value="en">EN</option>
+                    <option value="ko">한국어</option>
+                    <option value="ja">日本語</option>
+                </select>
+                <div id="timer"><span data-translate-key="timerLabel">时间</span>: <span>600</span>s</div>
+                <div id="score"><span data-translate-key="scoreLabel">得分</span>: <span>0</span></div>
+            </div>
+        </div>
+        <div id="game-board">
+            <div class="loader" id="loading-indicator"></div>
+        </div>
+        <div id="message-box" class="hidden-message-box"></div>
+        <button id="share-button" style="display:none; margin-top: 10px;" data-translate-key="shareButton">分享成绩</button> 
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // DOM Element References
+            const gameBoardElement = document.getElementById('game-board');
+            const timerValueElement = document.getElementById('timer').querySelector('span:last-child'); // Get the number span
+            const scoreValueElement = document.getElementById('score').querySelector('span:last-child'); // Get the number span
+            const timerLabelElement = document.getElementById('timer').querySelector('span:first-child');
+            const scoreLabelElement = document.getElementById('score').querySelector('span:first-child');
+
+            const restartButton = document.getElementById('restart-button');
+            const messageBox = document.getElementById('message-box');
+            const loadingIndicator = document.getElementById('loading-indicator');
+            const modeToggleButton = document.getElementById('mode-toggle-button');
+            const sizeToggleButton = document.getElementById('size-toggle-button');
+            const shareButton = document.getElementById('share-button'); 
+            const testWinButton = document.getElementById('test-win-button');
+            const languageSelector = document.getElementById('language-selector'); // Language selector
+            const gameTitleElement = document.querySelector('h1');
+
+
+            // --- Start of Internationalization (i18n) Setup ---
+            let currentLanguage = 'zh'; // Default language
+
+            const translations = {
+                zh: {
+                    gameTitle: "可爱图标连连看",
+                    modeButtonHell: "切换到地狱模式",
+                    modeButtonCasual: "切换到休闲模式",
+                    sizeButtonHard: `切换到16x16`,
+                    sizeButtonEasy: `切换到10x8`,
+                    restartButton: "重新开始",
+                    // testWinButton: "测试胜利", // Uncomment if using
+                    timerLabel: "时间",
+                    scoreLabel: "得分",
+                    shareButton: "分享成绩",
+                    winMessage: "太棒了！所有图标都找到伙伴啦！🎉",
+                    loseMessage: "时间到！下次努力哦！😢",
+                    testWinPrompt: "请先切换到地狱模式再测试胜利。",
+                    noUniqueImagesPreload: "没有唯一的图片需要预加载。",
+                    noImagesOrPathError: "没有图片需要预加载或 CUTE_ICONS_SOURCES 为空。请检查 NUM_UNIQUE_ICONS 和图片路径。",
+                    preloadError: (src, path) => `预加载图片错误: ${src}。确保图片存在于 '${path}' 目录下。`,
+                    oddTilesError: "棋盘格子总数必须是偶数才能配对！请检查行列设置。",
+                    noIconSourcesError: "错误：没有可用的图标来源 (CUTE_ICONS_SOURCES 为空)。游戏将使用占位符。",
+                    notEnoughUniqueIconsWarning: (unique, needed) => `警告: 唯一图标数量 (${unique}) 可能不足以填满 ${needed} 对格子。图标将会重复。`,
+                    notEnoughPairsError: (r, c) => `在 [${r},${c}] 处没有足够的图标配对。`,
+                    renderImageLoadError: (src) => `渲染时图片加载失败: ${src}. 显示占位符。`,
+                    invalidTileClick: (r,c) => `点击了无效或已清除的格子: [${r},${c}]`,
+                    shareScoreText: (score, url) => `我在《可爱图标连连看》地狱模式中获得了 ${score} 分！你也来试试吧！ ${url}`,
+                    shareTitle: "炫耀我的连连看成绩！",
+                    shareSuccessLog: "成功分享！",
+                    shareCancelledLog: "分享操作可能被取消或失败:",
+                    copySuccessMessage: "分享内容已复制到剪贴板，快去粘贴分享吧！",
+                    copyErrorMessage: "复制分享内容失败，请手动复制。",
+                    copyCommandUnsuccessful: "Fallback: Copying text command was unsuccessful",
+                    copyUnableError: "Fallback: Oops, unable to copy",
+                    unsupportedShareMessage: "你的浏览器不支持直接分享，分享内容已复制到剪贴板！"
+                },
+                en: {
+                    gameTitle: "Cute Icon Match-Up",
+                    modeButtonHell: "Switch to Hell Mode",
+                    modeButtonCasual: "Switch to Casual Mode",
+                    sizeButtonHard: "Switch to 16x16",
+                    sizeButtonEasy: "Switch to 10x8",
+                    restartButton: "Restart",
+                    // testWinButton: "Test Win", // Uncomment if using
+                    timerLabel: "Time",
+                    scoreLabel: "Score",
+                    shareButton: "Share Score",
+                    winMessage: "Awesome! All icons found their partners! 🎉",
+                    loseMessage: "Time's up! Better luck next time! 😢",
+                    testWinPrompt: "Please switch to Hell Mode before testing win.",
+                    noUniqueImagesPreload: "No unique images to preload.",
+                    noImagesOrPathError: "No images to preload or CUTE_ICONS_SOURCES is empty. Check NUM_UNIQUE_ICONS and image path.",
+                    preloadError: (src, path) => `Error preloading image: ${src}. Ensure it exists in '${path}'.`,
+                    oddTilesError: "Total number of board tiles must be even for pairing! Check row/column settings.",
+                    noIconSourcesError: "Error: No icon sources available (CUTE_ICONS_SOURCES is empty). Game will use placeholders.",
+                    notEnoughUniqueIconsWarning: (unique, needed) => `Warning: Number of unique icons (${unique}) may not be enough for ${needed} pairs. Icons will repeat.`,
+                    notEnoughPairsError: (r, c) => `Not enough icon pairs at [${r},${c}].`,
+                    renderImageLoadError: (src) => `Image failed to load during render: ${src}. Showing placeholder.`,
+                    invalidTileClick: (r,c) => `Clicked invalid or cleared tile: [${r},${c}]`,
+                    shareScoreText: (score, url) => `I scored ${score} in "Cute Icon Match-Up" (Hell Mode)! Come and try it! ${url}`,
+                    shareTitle: "Show off my Match-Up score!",
+                    shareSuccessLog: "Shared successfully!",
+                    shareCancelledLog: "Share operation may have been cancelled or failed:",
+                    copySuccessMessage: "Share content copied to clipboard! Go paste and share!",
+                    copyErrorMessage: "Failed to copy share content, please copy manually.",
+                    copyCommandUnsuccessful: "Fallback: Copying text command was unsuccessful",
+                    copyUnableError: "Fallback: Oops, unable to copy",
+                    unsupportedShareMessage: "Your browser doesn't support direct sharing. Share content copied to clipboard!"
+                },
+                ko: { // 韩语翻译
+                    gameTitle: "귀여운 아이콘 짝 맞추기",
+                    modeButtonHell: "헬 모드로 전환",
+                    modeButtonCasual: "캐주얼 모드로 전환",
+                    sizeButtonHard: "16x16으로 전환",
+                    sizeButtonEasy: "10x8로 전환",
+                    restartButton: "다시 시작",
+                    timerLabel: "시간",
+                    scoreLabel: "점수",
+                    shareButton: "점수 공유",
+                    winMessage: "축하합니다! 모든 아이콘의 짝을 찾았습니다! 🎉",
+                    loseMessage: "시간 초과! 다음에 다시 도전하세요! 😢",
+                    testWinPrompt: "승리 테스트 전에 헬 모드로 전환해주세요.",
+                    noUniqueImagesPreload: "미리 로드할 고유 이미지가 없습니다.",
+                    noImagesOrPathError: "미리 로드할 이미지가 없거나 CUTE_ICONS_SOURCES가 비어 있습니다. NUM_UNIQUE_ICONS 및 이미지 경로를 확인하세요.",
+                    preloadError: (src, path) => `이미지 미리 로드 오류: ${src}. '${path}'에 이미지가 있는지 확인하세요.`,
+                    oddTilesError: "짝을 맞추려면 보드 타일의 총 개수가 짝수여야 합니다! 행/열 설정을 확인하세요.",
+                    noIconSourcesError: "오류: 사용 가능한 아이콘 소스가 없습니다 (CUTE_ICONS_SOURCES가 비어 있음). 게임에서 자리 표시자를 사용합니다.",
+                    notEnoughUniqueIconsWarning: (unique, needed) => `경고: 고유 아이콘 수(${unique})가 ${needed}쌍을 채우기에 충분하지 않을 수 있습니다. 아이콘이 반복됩니다.`,
+                    notEnoughPairsError: (r, c) => `[${r},${c}]에 아이콘 쌍이 충분하지 않습니다.`,
+                    renderImageLoadError: (src) => `렌더링 중 이미지 로드 실패: ${src}. 자리 표시자를 표시합니다.`,
+                    invalidTileClick: (r,c) => `잘못되었거나 이미 제거된 타일을 클릭했습니다: [${r},${c}]`,
+                    shareScoreText: (score, url) => `"귀여운 아이콘 짝 맞추기" (헬 모드)에서 ${score}점을 획득했습니다! 당신도 도전해보세요! ${url}`,
+                    shareTitle: "점수 공유하기!",
+                    shareSuccessLog: "성공적으로 공유되었습니다!",
+                    shareCancelledLog: "공유 작업이 취소되었거나 실패했을 수 있습니다:",
+                    copySuccessMessage: "공유 내용이 클립보드에 복사되었습니다! 붙여넣고 공유하세요!",
+                    copyErrorMessage: "공유 내용 복사에 실패했습니다. 수동으로 복사해주세요.",
+                    copyCommandUnsuccessful: "폴백: 텍스트 복사 명령이 실패했습니다.",
+                    copyUnableError: "폴백: 죄송합니다, 복사할 수 없습니다.",
+                    unsupportedShareMessage: "브라우저에서 직접 공유를 지원하지 않습니다. 공유 내용이 클립보드에 복사되었습니다!"
+                },
+                ja: { // 日语翻译
+                    gameTitle: "つなげてポン!",
+                    modeButtonHell: "ヘルモードに切り替え",
+                    modeButtonCasual: "カジュアルモードに切り替え",
+                    sizeButtonHard: "16x16に切り替え",
+                    sizeButtonEasy: "10x8に切り替え",
+                    restartButton: "再開する",
+                    timerLabel: "時間",
+                    scoreLabel: "スコア",
+                    shareButton: "スコアを共有",
+                    winMessage: "素晴らしい！すべてのアイコンがペアを見つけました！🎉",
+                    loseMessage: "時間切れです！また挑戦してください！😢",
+                    testWinPrompt: "勝利をテストする前にヘルモードに切り替えてください。",
+                    noUniqueImagesPreload: "事前に読み込むユニークな画像はありません。",
+                    noImagesOrPathError: "事前に読み込む画像がないか、CUTE_ICONS_SOURCESが空です。NUM_UNIQUE_ICONSと画像パスを確認してください。",
+                    preloadError: (src, path) => `画像の事前読み込みエラー: ${src}。 '${path}'に画像が存在することを確認してください。`,
+                    oddTilesError: "ペアリングするには、ボードタイルの総数が偶数である必要があります！行/列の設定を確認してください。",
+                    noIconSourcesError: "エラー：利用可能なアイコンソースがありません（CUTE_ICONS_SOURCESは空です）。ゲームはプレースホルダーを使用します。",
+                    notEnoughUniqueIconsWarning: (unique, needed) => `警告：ユニークなアイコンの数（${unique}）が、${needed}ペアを埋めるのに十分でない可能性があります。アイコンは繰り返されます。`,
+                    notEnoughPairsError: (r, c) => `[${r},${c}]に十分なアイコンペアがありません。`,
+                    renderImageLoadError: (src) => `レンダリング中に画像の読み込みに失敗しました: ${src}。プレースホルダーを表示します。`,
+                    invalidTileClick: (r,c) => `無効またはクリアされたタイルをクリックしました: [${r},${c}]`,
+                    shareScoreText: (score, url) => `「つなげてポン！」（ヘルモード）で${score}点を獲得しました！あなたも試してみませんか？ ${url}`,
+                    shareTitle: "スコアをみんなに見せよう！",
+                    shareSuccessLog: "正常に共有されました！",
+                    shareCancelledLog: "共有操作がキャンセルされたか、失敗した可能性があります：",
+                    copySuccessMessage: "共有コンテンツがクリップボードにコピーされました！貼り付けて共有してください！",
+                    copyErrorMessage: "共有コンテンツのコピーに失敗しました。手動でコピーしてください。",
+                    copyCommandUnsuccessful: "フォールバック：テキストコピーコマンドが失敗しました",
+                    copyUnableError: "フォールバック：申し訳ありません、コピーできませんでした",
+                    unsupportedShareMessage: "お使いのブラウザは直接共有をサポートしていません。共有コンテンツがクリップボードにコピーされました！"
+                }
+            };
+
+            function _t(key, ...args) { // Simple translation function
+                const langSet = translations[currentLanguage];
+                if (langSet && langSet[key]) {
+                    if (typeof langSet[key] === 'function') {
+                        return langSet[key](...args);
+                    }
+                    return langSet[key];
+                }
+                // Fallback to English if key not found in current language, then to key itself
+                const fallbackLangSet = translations['en'];
+                if (fallbackLangSet && fallbackLangSet[key]) {
+                     if (typeof fallbackLangSet[key] === 'function') {
+                        return fallbackLangSet[key](...args);
+                    }
+                    return fallbackLangSet[key];
+                }
+                console.warn(`Translation missing for key: ${key}, lang: ${currentLanguage}`);
+                return key; // Return key if no translation found
+            }
+
+            function applyTranslations() {
+                document.title = _t("gameTitle");
+                gameTitleElement.textContent = _t("gameTitle");
+                
+                timerLabelElement.textContent = _t("timerLabel");
+                scoreLabelElement.textContent = _t("scoreLabel");
+                restartButton.textContent = _t("restartButton");
+                // if (testWinButton) testWinButton.textContent = _t("testWinButton"); // Uncomment if using
+                if (shareButton) shareButton.textContent = _t("shareButton");
+
+                // Update dynamic button texts
+                updateModeButtonText();
+                updateSizeButtonText();
+
+                // If message box is visible, re-translate its content (though typically set on demand)
+                if (!messageBox.classList.contains('hidden-message-box') && messageBox.dataset.messageKey) {
+                     const messageKey = messageBox.dataset.messageKey;
+                     const messageType = messageBox.dataset.messageType || 'success'; // or 'error'
+                     if (messageKey === "winMessage" || messageKey === "loseMessage") {
+                         showMessage(_t(messageKey), messageType);
+                     } else if (messageKey === "testWinPrompt"){
+                         showMessage(_t(messageKey), messageType);
+                     }
+                     // Add more specific message key handling if needed
+                }
+            }
+            // --- End of Internationalization (i18n) Setup ---
+
+
+            // Game Constants - Time Modes
+            const CASUAL_TIME_LIMIT = 600; // 10 minutes
+            const HELL_TIME_LIMIT = 300;   // 5 minutes
+
+            // Game Constants - Board Sizes (Easy mode is now 10 Rows x 8 Columns)
+            const EASY_ROWS = 10; 
+            const EASY_COLS = 8;  
+            const HARD_ROWS = 16;
+            const HARD_COLS = 16;
+
+            // Game Constants - Icons
+            const NUM_UNIQUE_ICONS = 32; 
+            const IMAGE_PATH_PREFIX = 'img/'; 
+            const IMAGE_EXTENSION = '.png';
+
+            // Game State Variables
+            let currentMode = 'casual'; 
+            let TIME_LIMIT = CASUAL_TIME_LIMIT;
+            let currentBoardSize = 'easy'; 
+            let ROWS = EASY_ROWS;
+            let COLS = EASY_COLS;
+            let board = []; 
+            let tileElements = []; 
+            let firstSelectedTile = null; 
+            let secondSelectedTile = null; 
+            let timeLeft = TIME_LIMIT;
+            let score = 0;
+            let timerInterval;
+            let remainingTiles = ROWS * COLS;
+            let gameActive = false;
+            let imagesLoadedCount = 0;
+            let totalImagesToLoad = 0;
+
+            let CUTE_ICONS_SOURCES = [];
+            for (let i = 1; i <= NUM_UNIQUE_ICONS; i++) {
+                CUTE_ICONS_SOURCES.push(`${IMAGE_PATH_PREFIX}animal${i}${IMAGE_EXTENSION}`);
+            }
+
+            function showLoadingIndicator(show) {
+                if (loadingIndicator) loadingIndicator.style.display = show ? 'block' : 'none';
+                if (show) {
+                    gameBoardElement.innerHTML = ''; 
+                    if (loadingIndicator) gameBoardElement.appendChild(loadingIndicator);
+                }
+            }
+
+            async function preloadImages(imageSources) {
+                showLoadingIndicator(true);
+                gameBoardElement.style.pointerEvents = 'none'; 
+                const uniqueImageSources = [...new Set(imageSources)];
+                totalImagesToLoad = uniqueImageSources.length;
+                imagesLoadedCount = 0;
+
+                if (totalImagesToLoad === 0) {
+                    console.warn(CUTE_ICONS_SOURCES.length > 0 ? _t("noUniqueImagesPreload") : _t("noImagesOrPathError"));
+                    handleAllImagesProcessed(); 
+                    return;
+                }
+                for (const src of uniqueImageSources) {
+                    const img = new Image();
+                    img.src = src; 
+                    img.onload = handleImageLoad;
+                    img.onerror = () => handleImageError(src);
+                }
+            }
+
+            function handleImageLoad() {
+                imagesLoadedCount++;
+                if (imagesLoadedCount >= totalImagesToLoad) handleAllImagesProcessed();
+            }
+
+            function handleImageError(src) {
+                console.error(_t("preloadError", src, IMAGE_PATH_PREFIX));
+                imagesLoadedCount++; 
+                if (imagesLoadedCount >= totalImagesToLoad) handleAllImagesProcessed();
+            }
+
+            function handleAllImagesProcessed() {
+                showLoadingIndicator(false);
+                gameBoardElement.style.pointerEvents = 'auto'; 
+                gameActive = true;
+                firstSelectedTile = null;
+                secondSelectedTile = null;
+                timeLeft = TIME_LIMIT; 
+                score = 0;
+                remainingTiles = ROWS * COLS; 
+
+                updateTimerDisplay();
+                updateScoreDisplay();
+                hideMessage();
+                renderBoard(); 
+                startTimer();
+            }
+
+            async function initGame() {
+                stopTimer();
+                gameActive = false; 
+                showLoadingIndicator(true);
+                if (shareButton) shareButton.style.display = 'none'; 
+                createBoardData(); 
+
+                let imagesToPreload = [];
+                if (board && board.length > 0) {
+                    for (let r = 0; r < ROWS; r++) {
+                        if (board[r]) {
+                            for (let c = 0; c < COLS; c++) {
+                                if (board[r][c] && board[r][c] !== 'placeholder_icon_path') {
+                                    imagesToPreload.push(board[r][c]);
+                                }
+                            }
+                        }
+                    }
+                }
+                await preloadImages(imagesToPreload);
+            }
+
+            function createBoardData() {
+                board = [];
+                tileElements = []; 
+                const iconPairs = [];
+                const numTotalTiles = ROWS * COLS; 
+                const numPairsNeeded = numTotalTiles / 2;
+
+                if (numTotalTiles % 2 !== 0) {
+                    console.error(_t("oddTilesError"));
+                }
+                
+                if (CUTE_ICONS_SOURCES.length === 0) {
+                    console.error(_t("noIconSourcesError"));
+                    for (let i = 0; i < numPairsNeeded; i++) {
+                        iconPairs.push(`placeholder_icon_path`, `placeholder_icon_path`);
+                    }
+                } else if (CUTE_ICONS_SOURCES.length < numPairsNeeded / (ROWS*COLS/NUM_UNIQUE_ICONS) && NUM_UNIQUE_ICONS < numPairsNeeded) { 
+                     console.warn(_t("notEnoughUniqueIconsWarning", NUM_UNIQUE_ICONS, numPairsNeeded));
+                }
+
+                for (let i = 0; i < numPairsNeeded; i++) {
+                    iconPairs.push(CUTE_ICONS_SOURCES[i % CUTE_ICONS_SOURCES.length]);
+                    iconPairs.push(CUTE_ICONS_SOURCES[i % CUTE_ICONS_SOURCES.length]);
+                }
+                
+                shuffleArray(iconPairs);
+
+                for (let r = 0; r < ROWS; r++) {
+                    board[r] = [];
+                    tileElements[r] = [];
+                    for (let c = 0; c < COLS; c++) {
+                        if (iconPairs.length > 0) {
+                            board[r][c] = iconPairs.pop();
+                        } else {
+                            board[r][c] = 'placeholder_icon_path'; 
+                            console.error(_t("notEnoughPairsError", r, c));
+                        }
+                        tileElements[r][c] = null; 
+                    }
+                }
+            }
+
+            function renderBoard() {
+                gameBoardElement.innerHTML = ''; 
+                
+                const tileRenderSize = 32; 
+                const gapSize = 2;         
+                const boardPadding = 5 * 2;  
+                const calculatedWidth = COLS * tileRenderSize + (COLS - 1) * gapSize + boardPadding;
+                gameBoardElement.style.width = `min(${calculatedWidth}px, 95vw)`; 
+
+                gameBoardElement.style.gridTemplateColumns = `repeat(${COLS}, 1fr)`;
+                gameBoardElement.style.gridTemplateRows = `repeat(${ROWS}, 1fr)`;
+
+                for (let r = 0; r < ROWS; r++) {
+                    for (let c = 0; c < COLS; c++) {
+                        const tileElement = document.createElement('div');
+                        tileElement.classList.add('tile');
+                        tileElements[r][c] = tileElement; 
+                        const imagePath = board[r] ? board[r][c] : null;
+
+                        if (imagePath && imagePath !== 'placeholder_icon_path') {
+                            const img = document.createElement('img');
+                            img.src = imagePath;
+                            img.alt = `Icon ${r}-${c}`; // Generic alt text, could be translated if needed
+                            img.style.pointerEvents = 'none'; 
+                            
+                            img.onerror = function() { 
+                                console.warn(_t("renderImageLoadError", this.src));
+                                if (this.parentNode) { 
+                                    this.parentNode.textContent = '🖼️'; 
+                                }
+                                this.remove(); 
+                            };
+                            tileElement.appendChild(img);
+                            tileElement.dataset.row = r; 
+                            tileElement.dataset.col = c;
+                        } else { 
+                            tileElement.innerHTML = '';
+                            tileElement.classList.add('hidden'); 
+                            if (imagePath === 'placeholder_icon_path') { 
+                                tileElement.textContent = '❔';
+                                tileElement.classList.remove('hidden');
+                                tileElement.style.cursor = 'default';
+                            }
+                        }
+                        gameBoardElement.appendChild(tileElement);
+                        if (!tileElement.classList.contains('hidden') || imagePath === 'placeholder_icon_path') {
+                            tileElement.addEventListener('click', handleTileClick);
+                        }
+                    }
+                }
+            }
+
+            function handleTileClick(event) {
+                if (!gameActive || !event.currentTarget) return; 
+                const clickedTileElement = event.currentTarget;
+                if (clickedTileElement.classList.contains('hidden') || clickedTileElement.classList.contains('selected')) return;
+
+                const r = parseInt(clickedTileElement.dataset.row);
+                const c = parseInt(clickedTileElement.dataset.col);
+
+                if (!board || !board[r] || typeof board[r][c] === 'undefined' || board[r][c] === null || board[r][c] === 'placeholder_icon_path') {
+                    console.warn(_t("invalidTileClick", r, c));
+                    return;
+                }
+                clickedTileElement.classList.add('selected');
+
+                if (!firstSelectedTile) { 
+                    firstSelectedTile = { r, c, element: clickedTileElement, iconSrc: board[r][c] };
+                } else { 
+                    if (firstSelectedTile.element === clickedTileElement) { 
+                        firstSelectedTile.element.classList.remove('selected');
+                        firstSelectedTile = null;
+                        return;
+                    }
+                    secondSelectedTile = { r, c, element: clickedTileElement, iconSrc: board[r][c] };
+                    gameBoardElement.style.pointerEvents = 'none'; 
+                    setTimeout(() => { 
+                        checkMatch();
+                        if (gameActive) gameBoardElement.style.pointerEvents = 'auto'; 
+                    }, 150);
+                }
+            }
+            
+             function getScoreForMatch(currentTimeLeft, mode) {
+                if (mode === 'casual') {
+                    return 10; 
+                } else if (mode === 'hell') {
+                    if (currentTimeLeft > 240) return 20; 
+                    if (currentTimeLeft > 180) return 18; 
+                    if (currentTimeLeft > 120) return 16; 
+                    if (currentTimeLeft > 60) return 14;   
+                    return 12; 
+                }
+                return 0; 
+            }
+
+            function checkMatch() {
+                if (!firstSelectedTile || !secondSelectedTile) return;
+                const p1 = firstSelectedTile;
+                const p2 = secondSelectedTile;
+
+                if (p1.iconSrc && p2.iconSrc && p1.iconSrc === p2.iconSrc && p1.iconSrc !== 'error_icon') {
+                    if (canConnect(p1, p2)) { 
+                        p1.element.classList.add('hidden'); p1.element.innerHTML = '';
+                        p2.element.classList.add('hidden'); p2.element.innerHTML = '';
+                        if (board[p1.r]) board[p1.r][p1.c] = null;
+                        if (board[p2.r]) board[p2.r][p2.c] = null;
+                        
+                        score += getScoreForMatch(timeLeft, currentMode);
+                        
+                        remainingTiles -= 2;
+                        updateScoreDisplay();
+                        if (remainingTiles === 0) gameOver(true); 
+                    } else { 
+                        p1.element.classList.remove('selected');
+                        p2.element.classList.remove('selected');
+                    }
+                } else { 
+                    p1.element.classList.remove('selected');
+                    if (p2.element) p2.element.classList.remove('selected');
+                }
+                firstSelectedTile = null;
+                secondSelectedTile = null;
+            }
+
+            function canConnect(p1, p2) {
+                let logicalBoard = [];
+                logicalBoard.push(new Array(COLS + 2).fill(null)); 
+                for (let i = 0; i < ROWS; i++) {
+                    const rowData = board[i] ? [...board[i]] : new Array(COLS).fill(null);
+                    logicalBoard.push([null, ...rowData, null]); 
+                }
+                logicalBoard.push(new Array(COLS + 2).fill(null)); 
+
+                const start = { r: p1.r + 1, c: p1.c + 1 }; 
+                const end = { r: p2.r + 1, c: p2.c + 1 };   
+
+                const queue = [{ r: start.r, c: start.c, dir: 0, turns: -1 }]; 
+                const visited = Array.from({ length: ROWS + 2 }, () =>
+                    Array.from({ length: COLS + 2 }, () => Array(5).fill(false))
+                );
+                if (visited[start.r] && visited[start.r][start.c]) visited[start.r][start.c][0] = true;
+
+                while (queue.length > 0) {
+                    const current = queue.shift();
+                    if (current.r === end.r && current.c === end.c && current.turns <= 2) return true; 
+                    if (current.turns > 2) continue; 
+
+                    const moves = [[-1, 0, 1], [0, 1, 2], [1, 0, 3], [0, -1, 4]]; 
+                    for (const move of moves) {
+                        const nextR = current.r + move[0], nextC = current.c + move[1], moveDir = move[2];
+                        let nextTurns = current.turns;
+                        if (current.dir !== 0 && current.dir !== moveDir) nextTurns++; 
+                        if (nextTurns > 2) continue; 
+
+                        if (nextR >= 0 && nextR < ROWS + 2 && nextC >= 0 && nextC < COLS + 2) {
+                            if (logicalBoard[nextR] && (logicalBoard[nextR][nextC] === null || (nextR === end.r && nextC === end.c))) {
+                                if (visited[nextR] && visited[nextR][nextC] && (!visited[nextR][nextC][moveDir] || (nextR === end.r && nextC === end.c))) {
+                                    visited[nextR][nextC][moveDir] = true;
+                                    queue.push({ r: nextR, c: nextC, dir: moveDir, turns: nextTurns });
+                                }
+                            }
+                        }
+                    }
+                }
+                return false; 
+            }
+
+            function stopTimer() { clearInterval(timerInterval); }
+
+            function startTimer() {
+                stopTimer();
+                timeLeft = TIME_LIMIT; 
+                updateTimerDisplay();
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    if (timeLeft <= 0) gameOver(false); 
+                }, 1000);
+            }
+
+            function updateTimerDisplay() { timerValueElement.textContent = timeLeft; } // Update only number
+            function updateScoreDisplay() { scoreValueElement.textContent = score; } // Update only number
+
+            function gameOver(isWin) {
+                gameActive = false;
+                stopTimer();
+                gameBoardElement.style.pointerEvents = 'none'; 
+                const messageKey = isWin ? "winMessage" : "loseMessage";
+                showMessage(_t(messageKey), isWin ? "success" : "error", messageKey);
+
+
+                if (currentMode === 'hell' && isWin && shareButton) {
+                    shareButton.style.display = 'inline-block'; 
+                } else if (shareButton) {
+                    shareButton.style.display = 'none';
+                }
+            }
+            
+            function showMessage(text, type, messageKey = null) { // Added messageKey
+                messageBox.textContent = text;
+                messageBox.className = `message-box ${type}`;
+                if (messageKey) { // Store the key for potential re-translation
+                    messageBox.dataset.messageKey = messageKey;
+                    messageBox.dataset.messageType = type;
+                } else {
+                    delete messageBox.dataset.messageKey;
+                    delete messageBox.dataset.messageType;
+                }
+            }
+
+            function hideMessage() { 
+                messageBox.className = 'message-box hidden-message-box';
+                delete messageBox.dataset.messageKey; 
+                delete messageBox.dataset.messageType;
+            }
+
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+
+            function updateModeButtonText() {
+                modeToggleButton.textContent = currentMode === 'casual' ? _t("modeButtonHell") : _t("modeButtonCasual");
+            }
+
+            function toggleGameMode() {
+                currentMode = currentMode === 'casual' ? 'hell' : 'casual';
+                TIME_LIMIT = currentMode === 'casual' ? CASUAL_TIME_LIMIT : HELL_TIME_LIMIT;
+                updateModeButtonText();
+                initGame(); 
+            }
+
+            function updateSizeButtonText() {
+                sizeToggleButton.textContent = currentBoardSize === 'easy' ? _t("sizeButtonHard", HARD_ROWS, HARD_COLS) : _t("sizeButtonEasy", EASY_ROWS, EASY_COLS);
+            }
+
+            function toggleBoardSize() {
+                if (currentBoardSize === 'easy') {
+                    currentBoardSize = 'hard';
+                    ROWS = HARD_ROWS; COLS = HARD_COLS;
+                } else {
+                    currentBoardSize = 'easy';
+                    ROWS = EASY_ROWS; COLS = EASY_COLS;
+                }
+                updateSizeButtonText();
+                initGame(); 
+            }
+
+            function copyToClipboard(textToCopy, successMessageText) {
+                const textArea = document.createElement('textarea');
+                textArea.value = textToCopy;
+                textArea.style.position = 'fixed'; 
+                textArea.style.left = '-9999px'; 
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    const successful = document.execCommand('copy');
+                    if (successful) {
+                        showMessage(successMessageText, 'success');
+                    } else {
+                        showMessage(_t('copyErrorMessage'), 'error');
+                        console.error(_t('copyCommandUnsuccessful'));
+                    }
+                } catch (err) {
+                    showMessage(_t('copyErrorMessage'), 'error');
+                    console.error(_t('copyUnableError'), err);
+                }
+                document.body.removeChild(textArea);
+            }
+
+            function handleShareScore() {
+                const gameUrl = window.location.href; 
+                const shareText = _t("shareScoreText", score, gameUrl);
+
+                if (navigator.share) {
+                    navigator.share({
+                        title: _t("shareTitle"),
+                        text: shareText,
+                        url: gameUrl,
+                    })
+                    .then(() => console.log(_t("shareSuccessLog")))
+                    .catch((error) => {
+                        console.warn(_t("shareCancelledLog"), error);
+                        copyToClipboard(shareText, _t("copySuccessMessage"));
+                    });
+                } else {
+                    copyToClipboard(shareText, _t("unsupportedShareMessage"));
+                }
+            }
+
+            function handleTestWin() {
+                 const messageKey = "testWinPrompt";
+                if (!gameActive && currentMode !== 'hell') {
+                    showMessage(_t(messageKey), 'error', messageKey);
+                    return;
+                }
+                 if (!gameActive && currentMode === 'hell'){
+                     score = Math.floor(Math.random() * 100) + 50; 
+                     updateScoreDisplay();
+                     gameOver(true);
+                     return;
+                 }
+                gameOver(true);
+            }
+
+            // Event Listener for language selector
+            languageSelector.addEventListener('change', (event) => {
+                currentLanguage = event.target.value;
+                document.documentElement.lang = currentLanguage.startsWith('zh') ? 'zh-CN' : currentLanguage; // Update html lang
+                applyTranslations();
+            });
+
+
+            // Event Listeners
+            modeToggleButton.addEventListener('click', toggleGameMode);
+            sizeToggleButton.addEventListener('click', toggleBoardSize);
+            restartButton.addEventListener('click', initGame);
+            if (shareButton) { 
+                shareButton.addEventListener('click', handleShareScore);
+            }
+            if (testWinButton) { 
+                testWinButton.addEventListener('click', handleTestWin);
+            }
+
+            // Initial Game Setup
+            document.documentElement.lang = currentLanguage.startsWith('zh') ? 'zh-CN' : currentLanguage; // Set initial html lang
+            applyTranslations(); // Apply translations on initial load
+            // updateModeButtonText(); // Called by applyTranslations
+            // updateSizeButtonText(); // Called by applyTranslations
+            initGame(); 
+        });
+    </script></body></html>
