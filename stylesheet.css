@@ -438,3 +438,9 @@ p {
     box-shadow: none;
   }
 }
+
+.project-table, 
+.project-table tbody {
+  display: block;
+  width: 100%;
+}
