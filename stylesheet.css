@@ -1,21 +1,15 @@
-/* Shuai Chen — site styles */
-
 :root {
   --bg: #f4f6f9;
   --bg-elevated: #ffffff;
   --text: #1e293b;
   --text-muted: #64748b;
   --accent: #2563eb;
-  --accent-hover: #1d4ed8;
   --accent-warm: #ea580c;
   --border: #e2e8f0;
-  --border-strong: #cbd5e1;
   --ring: rgba(37, 99, 235, 0.25);
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
   --shadow-md: 0 8px 30px rgba(15, 23, 42, 0.08);
-  --radius: 14px;
   --radius-sm: 10px;
-  --pub-thumb-max: 300px;
+  --preview-shadow: 0 8px 25px rgba(15, 23, 42, 0.28);
   --font: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
@@ -40,7 +34,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Footnote-style markers: default sup sits oddly inside tight line-heights */
 sup {
   font-size: 0.7em;
   line-height: 0;
@@ -75,20 +68,16 @@ a:focus-visible {
   box-shadow: 0 0 0 3px var(--ring);
 }
 
-/* ---- Profile ---- */
 .profile {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 2rem 2.5rem;
   margin-bottom: 2.5rem;
-  padding: 0;
-  background: transparent;
 }
 
-img.profile-photo {
+.profile-photo {
   width: clamp(160px, 28vw, 220px);
-  max-width: 220px;
   height: auto;
   flex-shrink: 0;
   border-radius: 18px;
@@ -112,11 +101,8 @@ img.profile-photo {
   margin-bottom: 0;
 }
 
-name {
-  display: block;
-  text-align: left;
+.profile h1 {
   margin: 0 0 1.25rem;
-  font-family: var(--font);
   font-size: clamp(1.75rem, 4vw, 2.25rem);
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -124,13 +110,10 @@ name {
   line-height: 1.2;
 }
 
-/* Full-width row under photo + bio so all pills fit on one line on desktop */
 .profile .links {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem 0.65rem;
-  flex-basis: 100%;
-  width: 100%;
   margin-top: 1.25rem;
   padding-top: 1.25rem;
   border-top: 1px solid var(--border);
@@ -151,8 +134,7 @@ name {
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
-.profile .links a i,
-.profile .links a .ai {
+.profile .links i {
   font-size: 0.92rem;
   width: 1.1em;
   flex-shrink: 0;
@@ -161,191 +143,193 @@ name {
 }
 
 .profile .links a:hover {
-  background: var(--bg);
   border-color: var(--accent);
   color: var(--accent);
 }
 
-.profile .links a:hover i,
-.profile .links a:hover .ai {
+.profile .links a:hover i {
   opacity: 1;
   color: var(--accent);
 }
 
-/* ---- Section headings (custom element + legacy) ---- */
-heading,
-h2.section-heading {
-  display: block;
-  margin: 2.5rem 0 0.75rem;
-  font-family: var(--font);
+.hiring-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem 1.5rem;
+  margin-bottom: 2rem;
+  padding: 0.85rem 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-inline-start: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  font-size: 0.9375rem;
+}
+
+.hiring-note h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.hiring-note p {
+  margin: 0.15rem 0 0;
+  color: var(--text-muted);
+}
+
+.hiring-note a {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.section-title {
+  margin: 0 0 0.75rem;
   font-size: 1.125rem;
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: var(--text);
-  padding-bottom: 0;
 }
 
-heading:first-of-type,
-.section-heading:first-of-type {
-  margin-top: 0;
-}
-
-.page > p {
-  margin: 0 0 1rem;
+.research-intro,
+.services p {
   max-width: 65ch;
+  margin: 0;
 }
 
-.page > p.footnote {
+.services {
+  margin-top: 2.5rem;
+}
+
+.services .footnote {
   margin-top: 0.35rem;
   font-size: 0.9375rem;
   color: var(--text-muted);
 }
 
-.page > p:last-of-type {
-  margin-bottom: 0;
-}
-
-/* ---- Publications ---- */
-.project-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
+.publications {
   margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
 }
 
-.project-table tr.pub-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  background: transparent;
-  margin-bottom: 0;
+.publication {
+  display: grid;
+  grid-template-columns: min(34%, 300px) minmax(0, 1fr);
+  align-items: start;
   padding: 1.5rem 0;
   border-bottom: 1px solid var(--border);
-  transition: none;
 }
 
-.project-table tr.pub-row:last-child {
+.publication:last-child {
   border-bottom: none;
 }
 
-.project-table tr.pub-row td {
-  vertical-align: top;
-  padding: 0;
-  border: none;
+.publication:has(.publication-preview:hover) {
+  position: relative;
+  z-index: 2;
 }
 
-.project-table tr.pub-row td:first-child {
-  width: 34%;
-  max-width: var(--pub-thumb-max);
-  flex-shrink: 0;
-  padding-right: 1.75rem;
-  overflow: visible;
+.publication-media {
   position: relative;
   z-index: 1;
+  padding-inline-end: 1.75rem;
 }
 
-/* Lift entire row while a thumb is zoomed (same idea as xianzhengma.github.io global.css) */
-.project-table tr.pub-row:has(.one:hover) {
-  position: relative;
-  z-index: 40;
-}
-
-.project-table tr.pub-row td:last-child {
-  flex: 1;
-  min-width: min(100%, 240px);
+.publication-content {
   font-size: 0.9375rem;
-  line-height: 1.65;
-  /* body text: venue line, plain author names, years; links stay accent via `a` */
-  color: var(--text);
 }
 
-.project-table tr.pub-row papertitle {
-  display: inline;
+.publication-title {
+  margin: 0;
   font-size: 1.02rem;
   line-height: 1.45;
-  font-weight: 700;
-  color: var(--text);
 }
 
-.project-table tr.pub-row em {
+.publication-content p {
+  margin: 0;
+}
+
+.publication-venue em {
   font-style: normal;
   font-weight: 600;
-  color: var(--text);
 }
 
-.project-table tr.pub-row td:last-child > p:last-child {
-  margin: 0.85rem 0 0;
-  padding-top: 0.65rem;
+.publication-content .publication-summary {
+  margin-top: 1.5rem;
   font-size: 0.9rem;
   color: var(--text-muted);
   line-height: 1.6;
 }
 
-/* Thumbnail: hover = large in-place zoom (left-origin, ~2.2× like xianzhengma.github.io) + .two overlay; video play via JS */
-.one {
+.publication-preview {
+  --preview-zoom: 2.15;
   position: relative;
-  width: 100%;
-  max-width: var(--pub-thumb-max);
-  overflow: visible;
-  z-index: 1;
-  transform-origin: left center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: block;
 }
 
-.one:hover {
-  transform: scale(2.15);
-  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.28);
-  z-index: 1000;
-}
-
-.two {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  z-index: 2;
-  transition: opacity 0.3s ease;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  pointer-events: none;
-  background: #0f172a;
-}
-
-.one:hover .two {
-  opacity: 1;
-}
-
-.one > img {
+.publication-thumbnail {
+  display: block;
   width: 100%;
   height: auto;
-  display: block;
   border-radius: var(--radius-sm);
   background: var(--bg);
 }
 
-/* Full frame inside hover layer (no crop); letterboxing on mismatch aspect ratio */
-.two img,
-.two video {
+.publication-overlay {
+  position: absolute;
+  inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
-  object-position: center;
-  display: block;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+  background: #0f172a;
 }
 
-.award,
-span.award {
+.publication-preview:hover .publication-overlay {
+  opacity: 1;
+}
+
+.publication-preview--full-size {
+  aspect-ratio: 3120 / 1440;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .publication-preview:has(> .publication-overlay) {
+    transform-origin: left center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .publication-preview:has(> .publication-overlay):hover {
+    transform: scale(var(--preview-zoom));
+    box-shadow: var(--preview-shadow);
+  }
+}
+
+@media (hover: hover) and (width > 768px) and (prefers-reduced-motion: no-preference) {
+  /* Resize the image directly to keep the zoom sharp. */
+  .publication-preview--full-size:hover .publication-thumbnail {
+    position: absolute;
+    top: calc((1 - var(--preview-zoom)) * 50%);
+    left: 0;
+    width: calc(100% * var(--preview-zoom));
+    box-shadow: var(--preview-shadow);
+  }
+}
+
+.award {
   color: #dc2626;
   font-weight: 600;
   font-size: 0.9em;
 }
 
-/* ---- Academic services ---- */
-.page > p b {
-  color: var(--text);
+strong {
   font-weight: 600;
 }
 
-/* ---- Footer ---- */
 .site-footer {
   margin-top: 3rem;
   padding-top: 1.25rem;
@@ -357,38 +341,19 @@ span.award {
   font-weight: 500;
 }
 
-/* ---- Legacy element styles ---- */
-papertitle {
-  font-family: var(--font);
-}
-
-strong {
-  font-family: var(--font);
-  font-weight: 600;
-  color: var(--text);
-}
-
-body,
-td,
-th,
-tr,
-p {
-  font-family: var(--font);
-}
-
 @media screen and (max-width: 768px) {
   .page {
     padding: 1.5rem 1.1rem 2.5rem;
   }
 
   .profile {
-    padding: 1.5rem;
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    gap: 1.25rem;
+    margin-bottom: 1.75rem;
   }
 
-  name {
+  .profile h1 {
     text-align: center;
   }
 
@@ -399,24 +364,18 @@ p {
     margin-top: 0.75rem;
   }
 
-  .project-table tr.pub-row {
-    flex-direction: column;
+  .publication {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
     padding: 1.25rem 0;
   }
 
-  .project-table tr.pub-row td:first-child {
-    width: 100%;
-    max-width: none;
-    padding-right: 0;
-    margin-bottom: 1rem;
+  .publication-media {
+    padding-inline-end: 0;
   }
 
-  .one {
-    max-width: none;
-  }
-
-  .one:hover {
-    transform: scale(1.45);
+  .publication-preview {
+    --preview-zoom: 1.45;
   }
 }
 
@@ -427,20 +386,7 @@ p {
 
   a,
   .profile .links a,
-  .project-table tr.pub-row,
-  .one,
-  .two {
+  .publication-overlay {
     transition: none;
   }
-
-  .one:hover {
-    transform: none;
-    box-shadow: none;
-  }
-}
-
-.project-table, 
-.project-table tbody {
-  display: block;
-  width: 100%;
 }
