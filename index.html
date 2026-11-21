@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-  <link rel="stylesheet" href="stylesheet.css">
+  <link rel="stylesheet" href="stylesheet.css?v=2">
 </head>
 
 <body>
@@ -53,9 +53,12 @@
         <ul class="publications" role="list">
           <li class="publication">
             <div class="publication-media">
-              <a class="publication-preview publication-preview--full-size" href="images/autocompass.webp" title="Open the full-resolution AutoCompass teaser">
+              <div class="publication-preview">
                 <img class="publication-thumbnail" src="images/autocompass.webp" width="3120" height="1440" alt="AutoCompass comparison of visual localization with strong and weak pose supervision">
-              </a>
+                <video class="publication-overlay" aria-hidden="true" muted loop playsinline preload="metadata">
+                  <source src="videos/autocompass.mp4" type="video/mp4">
+                </video>
+              </div>
             </div>
             <div class="publication-content">
               <h3 class="publication-title">AutoCompass: Accurate Visual Localization on Public Maps by Learning from Weak Labels</h3>
